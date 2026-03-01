@@ -2021,3 +2021,545 @@ body.light-mode .detail-row {
         height: 150px;
     }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   SKYBOT – RECOMMENDATION CHATBOT
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Floating Action Button ── */
+.skybot-fab {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    z-index: 9990;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 20px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #0a0812;
+    background: linear-gradient(135deg, #ffcc7b, #13d0b4);
+    box-shadow: 0 8px 32px rgba(255, 204, 123, 0.45), 0 4px 16px rgba(0, 0, 0, 0.6);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, padding 0.25s ease;
+    white-space: nowrap;
+}
+
+.skybot-fab:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 14px 40px rgba(255, 204, 123, 0.6), 0 6px 20px rgba(0, 0, 0, 0.7);
+}
+
+.skybot-fab--open {
+    padding: 14px;
+    border-radius: 50%;
+}
+
+.skybot-fab__label {
+    display: inline;
+}
+
+.skybot-fab--pulse {
+    animation: skybot-pulse 2s ease-in-out infinite;
+}
+
+@keyframes skybot-pulse {
+
+    0%,
+    100% {
+        box-shadow: 0 8px 32px rgba(255, 204, 123, 0.45), 0 0 0 0 rgba(255, 204, 123, 0.5);
+    }
+
+    50% {
+        box-shadow: 0 8px 32px rgba(255, 204, 123, 0.45), 0 0 0 14px rgba(255, 204, 123, 0);
+    }
+}
+
+/* ── Chat Window ── */
+.skybot-window {
+    position: fixed;
+    bottom: 92px;
+    right: 28px;
+    z-index: 9989;
+    width: 400px;
+    max-height: 600px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 22px;
+    background: linear-gradient(160deg, #0d1528 0%, #050816 100%);
+    border: 1px solid rgba(255, 204, 123, 0.18);
+    box-shadow: 0 32px 80px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.04);
+    animation: skybot-slide-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    overflow: hidden;
+}
+
+body.light-mode .skybot-window {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+@keyframes skybot-slide-in {
+    from {
+        opacity: 0;
+        transform: translateY(24px) scale(0.94);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ── Header ── */
+.skybot-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 18px;
+    background: linear-gradient(90deg, rgba(255, 204, 123, 0.12), rgba(19, 208, 180, 0.08));
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    flex-shrink: 0;
+}
+
+body.light-mode .skybot-header {
+    background: linear-gradient(90deg, rgba(255, 204, 123, 0.1), rgba(19, 208, 180, 0.06));
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.skybot-header__left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.skybot-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ffcc7b33, #13d0b433);
+    border: 1.5px solid rgba(255, 204, 123, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.skybot-header__name {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--accent-soft);
+}
+
+body.light-mode .skybot-header__name {
+    color: #212529;
+}
+
+.skybot-header__status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.skybot-status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #13d0b4;
+    box-shadow: 0 0 8px rgba(19, 208, 180, 0.8);
+    animation: skybot-blink 2s ease-in-out infinite;
+}
+
+@keyframes skybot-blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.4;
+    }
+}
+
+.skybot-close-btn {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--text-muted);
+    transition: background 0.2s ease, color 0.2s ease;
+    flex-shrink: 0;
+}
+
+.skybot-close-btn:hover {
+    background: rgba(255, 100, 100, 0.15);
+    color: #ff6b6b;
+}
+
+body.light-mode .skybot-close-btn {
+    background: #f1f3f5;
+    border-color: transparent;
+    color: #6c757d;
+}
+
+/* ── Progress bar ── */
+.skybot-progress-bar {
+    height: 3px;
+    background: rgba(255, 255, 255, 0.06);
+    flex-shrink: 0;
+}
+
+.skybot-progress-bar__fill {
+    height: 100%;
+    background: linear-gradient(90deg, #ffcc7b, #13d0b4);
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 0 2px 2px 0;
+}
+
+/* ── Messages area ── */
+.skybot-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 204, 123, 0.2) transparent;
+}
+
+.skybot-messages::-webkit-scrollbar {
+    width: 4px;
+}
+
+.skybot-messages::-webkit-scrollbar-thumb {
+    background: rgba(255, 204, 123, 0.2);
+    border-radius: 4px;
+}
+
+/* ── Chat bubbles ── */
+.skybot-msg {
+    display: flex;
+    gap: 10px;
+    max-width: 90%;
+    animation: skybot-fade-up 0.35s ease;
+}
+
+@keyframes skybot-fade-up {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.skybot-msg--bot {
+    align-self: flex-start;
+}
+
+.skybot-msg--user {
+    align-self: flex-end;
+    flex-direction: row-reverse;
+}
+
+.skybot-msg__avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(255, 204, 123, 0.2), rgba(19, 208, 180, 0.2));
+    border: 1px solid rgba(255, 204, 123, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+    margin-top: 4px;
+}
+
+.skybot-msg__bubble {
+    padding: 12px 14px;
+    border-radius: 16px;
+    font-size: 0.875rem;
+    line-height: 1.55;
+    position: relative;
+    max-width: 100%;
+}
+
+.skybot-msg--bot .skybot-msg__bubble {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    color: var(--text-main);
+    border-radius: 4px 16px 16px 16px;
+}
+
+body.light-mode .skybot-msg--bot .skybot-msg__bubble {
+    background: #f1f3f5;
+    border-color: transparent;
+    color: #212529;
+}
+
+.skybot-msg--user .skybot-msg__bubble {
+    background: linear-gradient(135deg, rgba(255, 204, 123, 0.25), rgba(19, 208, 180, 0.15));
+    border: 1px solid rgba(255, 204, 123, 0.25);
+    color: var(--accent-soft);
+    border-radius: 16px 4px 16px 16px;
+}
+
+body.light-mode .skybot-msg--user .skybot-msg__bubble {
+    background: linear-gradient(135deg, rgba(224, 168, 0, 0.15), rgba(19, 208, 180, 0.1));
+    border-color: rgba(224, 168, 0, 0.2);
+    color: #212529;
+}
+
+.skybot-msg__time {
+    display: block;
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    opacity: 0.7;
+    margin-top: 6px;
+    text-align: right;
+}
+
+/* ── Option buttons ── */
+.skybot-question-block {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    animation: skybot-fade-up 0.35s ease;
+}
+
+.skybot-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-left: 40px;
+}
+
+.skybot-option-btn {
+    padding: 10px 16px;
+    border-radius: 12px;
+    background: rgba(255, 204, 123, 0.06);
+    border: 1px solid rgba(255, 204, 123, 0.2);
+    color: var(--accent-soft);
+    font-family: inherit;
+    font-size: 0.84rem;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+    line-height: 1.4;
+}
+
+.skybot-option-btn:hover {
+    background: rgba(255, 204, 123, 0.14);
+    border-color: rgba(255, 204, 123, 0.45);
+    transform: translateX(4px);
+}
+
+body.light-mode .skybot-option-btn {
+    background: #f8f9fa;
+    border-color: rgba(0, 0, 0, 0.08);
+    color: #212529;
+}
+
+body.light-mode .skybot-option-btn:hover {
+    background: #fff3cd;
+    border-color: rgba(224, 168, 0, 0.3);
+}
+
+/* ── Recommendation cards ── */
+.skybot-recs {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    animation: skybot-fade-up 0.4s ease;
+}
+
+.skybot-rec-card {
+    border-radius: 14px;
+    background: radial-gradient(circle at 0 0, rgba(255, 204, 123, 0.1), transparent),
+        rgba(8, 12, 30, 0.9);
+    border: 1px solid rgba(255, 204, 123, 0.2);
+    overflow: hidden;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.skybot-rec-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+}
+
+body.light-mode .skybot-rec-card {
+    background: #ffffff;
+    border-color: rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.skybot-rec-card__img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    display: block;
+}
+
+.skybot-rec-card__body {
+    padding: 14px;
+}
+
+.skybot-rec-card__badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    background: linear-gradient(135deg, rgba(255, 204, 123, 0.25), rgba(19, 208, 180, 0.15));
+    border: 1px solid rgba(255, 204, 123, 0.3);
+    color: var(--accent);
+    margin-bottom: 8px;
+}
+
+body.light-mode .skybot-rec-card__badge {
+    background: #fff3cd;
+    border-color: rgba(224, 168, 0, 0.2);
+    color: #856404;
+}
+
+.skybot-rec-card__title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--accent-soft);
+}
+
+body.light-mode .skybot-rec-card__title {
+    color: #212529;
+}
+
+.skybot-rec-card__desc {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+.skybot-rec-card__features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.skybot-rec-card__features li {
+    font-size: 0.76rem;
+    color: #13d0b4;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+/* ── Done action buttons ── */
+.skybot-done-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 4px;
+    animation: skybot-fade-up 0.4s ease;
+}
+
+.skybot-cta-btn {
+    display: block;
+    text-align: center;
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.skybot-cta-btn--primary {
+    background: linear-gradient(135deg, #ffcc7b, #13d0b4);
+    color: #0a0812;
+    border: none;
+}
+
+.skybot-cta-btn--primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(255, 204, 123, 0.4);
+}
+
+.skybot-cta-btn--outline {
+    background: transparent;
+    border: 1px solid rgba(255, 204, 123, 0.35);
+    color: var(--accent-soft);
+}
+
+.skybot-cta-btn--outline:hover {
+    background: rgba(255, 204, 123, 0.08);
+}
+
+body.light-mode .skybot-cta-btn--outline {
+    border-color: rgba(0, 0, 0, 0.15);
+    color: #212529;
+}
+
+.skybot-restart-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-family: inherit;
+    font-size: 0.8rem;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 10px;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.skybot-restart-btn:hover {
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--accent-soft);
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+    .skybot-window {
+        right: 12px;
+        left: 12px;
+        width: auto;
+        bottom: 86px;
+        max-height: 70vh;
+    }
+
+    .skybot-fab {
+        right: 16px;
+        bottom: 20px;
+    }
+
+    .skybot-fab__label {
+        display: none;
+    }
+
+    .skybot-fab--open,
+    .skybot-fab:not(.skybot-fab--open) {
+        padding: 14px;
+        border-radius: 50%;
+    }
+}
