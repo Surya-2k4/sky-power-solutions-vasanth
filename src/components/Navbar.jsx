@@ -43,13 +43,32 @@ function Navbar() {
                     <NavLink to="/reviews" className={({ isActive }) => isActive ? 'active' : ''}>{t('reviews')}</NavLink>
                     <NavLink to="/faq" className={({ isActive }) => isActive ? 'active' : ''}>{t('faq')}</NavLink>
                     <NavLink to="/about" className={({ isActive }) => isActive ? 'active' : ''}>{t('about')}</NavLink>
+
+                    {/* These appear inside the mobile dropdown menu only */}
+                    <div className="mobile-only-links">
+                        <NavLink to="/contact" className="mobile-nav-cta">{t('contact-us')}</NavLink>
+                        {user ? (
+                            <>
+                                {isAdmin && (
+                                    <NavLink to="/admin" className="mobile-nav-cta">⚙️ Admin Dashboard</NavLink>
+                                )}
+                                <button className="mobile-nav-cta mobile-logout-btn" onClick={handleLogout}>
+                                    🚪 Logout
+                                </button>
+                            </>
+                        ) : (
+                            <NavLink to="/login" className="mobile-nav-cta mobile-login-btn">
+                                Login
+                            </NavLink>
+                        )}
+                    </div>
                 </nav>
 
                 <div className="nav-actions">
-                    <button className="btn-ghost" onClick={toggleTheme} title="Toggle Theme">
+                    <button className="btn-ghost btn-icon-only" onClick={toggleTheme} title="Toggle Theme">
                         {theme === 'dark' ? '☀️' : '🌙'}
                     </button>
-                    <button className="btn-ghost" onClick={toggleLang} title="Switch Language">
+                    <button className="btn-ghost btn-icon-only" onClick={toggleLang} title="Switch Language">
                         🌐 {lang === 'en' ? 'TA' : 'EN'}
                     </button>
                     <NavLink to="/contact" className="btn-outline sm-hidden">{t('contact-us')}</NavLink>
@@ -60,7 +79,7 @@ function Navbar() {
                                     ⚙️ Admin
                                 </NavLink>
                             )}
-                            <button className="btn-ghost nav-user-btn" onClick={handleLogout} title="Logout">
+                            <button className="btn-ghost nav-user-btn sm-hidden" onClick={handleLogout} title="Logout">
                                 <span className="nav-user-avatar">
                                     {user.photoURL ? (
                                         <img src={user.photoURL} alt="" style={{ width: 24, height: 24, borderRadius: '50%' }} />
@@ -68,7 +87,7 @@ function Navbar() {
                                         user.displayName ? user.displayName[0].toUpperCase() : '👤'
                                     )}
                                 </span>
-                                <span className="sm-hidden">Logout</span>
+                                Logout
                             </button>
                         </>
                     ) : (

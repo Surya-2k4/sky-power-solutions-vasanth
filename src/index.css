@@ -87,7 +87,7 @@ body.light-mode .overlay {
     inset-inline: 0;
     top: 0;
     z-index: 1000;
-    padding: 18px 24px;
+    padding: 14px 24px;
     background: linear-gradient(to bottom, rgba(5, 8, 22, 0.9), transparent);
     backdrop-filter: blur(16px);
     transition: all 0.3s ease;
@@ -104,22 +104,23 @@ body.light-mode .navbar {
 }
 
 .navbar-inner {
-    max-width: 1120px;
+    max-width: 1320px;
     margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 24px;
+    gap: 16px;
 }
 
 .logo {
     display: flex;
     align-items: center;
     gap: 10px;
+    flex-shrink: 0;
 }
 
 .logo-img {
-    height: 45px;
+    height: 40px;
     width: auto;
     border-radius: 8px;
     object-fit: contain;
@@ -128,7 +129,8 @@ body.light-mode .navbar {
 .logo-text {
     font-weight: 600;
     letter-spacing: 0.04em;
-    font-size: 1.1rem;
+    font-size: 1rem;
+    white-space: nowrap;
 }
 
 body.light-mode .logo-text {
@@ -138,14 +140,15 @@ body.light-mode .logo-text {
 .nav-links {
     display: flex;
     align-items: center;
-    gap: 28px;
-    font-size: 0.95rem;
+    gap: 20px;
+    font-size: 0.88rem;
 }
 
 .nav-links a {
     color: var(--text-muted);
     position: relative;
     transition: color 0.3s ease;
+    white-space: nowrap;
 }
 
 body.light-mode .nav-links a {
@@ -174,10 +177,16 @@ body.light-mode .nav-links a:hover {
     background: linear-gradient(90deg, var(--accent), var(--accent-teal));
 }
 
+/* Mobile-only links inside hamburger dropdown */
+.mobile-only-links {
+    display: none;
+}
+
 .nav-actions {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
+    flex-shrink: 0;
 }
 
 /* buttons */
@@ -185,8 +194,8 @@ body.light-mode .nav-links a:hover {
 .btn-outline,
 .btn-ghost {
     border-radius: 999px;
-    padding: 10px 22px;
-    font-size: 0.9rem;
+    padding: 8px 18px;
+    font-size: 0.85rem;
     border: none;
     cursor: pointer;
     display: inline-flex;
@@ -195,6 +204,12 @@ body.light-mode .nav-links a:hover {
     gap: 6px;
     transition: all 0.2s ease;
     font-family: inherit;
+    white-space: nowrap;
+}
+
+.btn-icon-only {
+    padding: 8px 12px;
+    font-size: 0.85rem;
 }
 
 .btn-primary {
@@ -672,21 +687,37 @@ textarea:focus {
     }
 }
 
-@media (max-width: 960px) {
+@media (max-width: 1100px) {
     .nav-links {
         display: none;
         position: fixed;
-        top: 80px;
-        right: 24px;
+        top: 72px;
+        right: 16px;
         background: var(--bg-elevated);
         flex-direction: column;
-        padding: 24px;
+        padding: 20px;
         border-radius: 18px;
         border: 1px solid var(--border-soft);
-        min-width: 200px;
-        align-items: flex-start;
+        min-width: 220px;
+        align-items: stretch;
         box-shadow: var(--shadow-soft);
         z-index: 999;
+        gap: 4px;
+    }
+
+    .nav-links a {
+        padding: 10px 14px;
+        border-radius: 10px;
+        transition: background 0.2s ease;
+    }
+
+    .nav-links a:hover {
+        background: rgba(255, 204, 123, 0.06);
+    }
+
+    .nav-links a.active::after,
+    .nav-links a:hover::after {
+        display: none;
     }
 
     .nav-links.show {
@@ -703,6 +734,55 @@ textarea:focus {
 
     .sm-hidden {
         display: none;
+    }
+
+    /* Show mobile-only links inside the dropdown */
+    .mobile-only-links {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        border-top: 1px solid var(--border-soft);
+        padding-top: 12px;
+        margin-top: 8px;
+    }
+
+    .mobile-nav-cta {
+        display: block;
+        padding: 10px 14px;
+        border-radius: 10px;
+        font-size: 0.88rem;
+        color: var(--text-muted);
+        transition: all 0.2s ease;
+        text-align: left;
+    }
+
+    .mobile-nav-cta:hover {
+        background: rgba(255, 204, 123, 0.06);
+        color: var(--accent-soft);
+    }
+
+    .mobile-login-btn {
+        background: linear-gradient(135deg, var(--accent), var(--accent-teal));
+        color: #0a0812 !important;
+        font-weight: 600;
+        text-align: center;
+        border-radius: 12px;
+        margin-top: 4px;
+    }
+
+    .mobile-logout-btn {
+        background: none;
+        border: 1px solid rgba(255, 59, 48, 0.2);
+        color: #ff6b6b !important;
+        font-family: inherit;
+        cursor: pointer;
+        border-radius: 12px;
+        font-size: 0.88rem;
+        width: 100%;
+    }
+
+    .mobile-logout-btn:hover {
+        background: rgba(255, 59, 48, 0.08);
     }
 }
 
