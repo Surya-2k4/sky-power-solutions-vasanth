@@ -57,7 +57,16 @@ function Signup() {
             await loginWithGoogle();
             navigate('/');
         } catch (err) {
-            setError('Google sign-up failed. Please try again.');
+            console.error("Google signup error:", err);
+            if (err.code === 'auth/popup-closed-by-user') {
+                setError('The popup was closed before completing the sign-up.');
+            } else if (err.code === 'auth/popup-blocked') {
+                setError('The sign-up popup was blocked by your browser. Please allow popups for this site.');
+            } else if (err.code === 'auth/account-exists-with-different-credential') {
+                setError('An account already exists with this email but using a different sign-in method.');
+            } else {
+                setError(`Google sign-up failed: ${err.message || 'Please try again.'}`);
+            }
         }
         setLoading(false);
     };

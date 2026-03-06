@@ -13,7 +13,7 @@ import { auth, db, googleProvider } from '../firebase/config';
 
 const AuthContext = createContext(null);
 
-const ADMIN_EMAIL = 'admin.sky@gmail.com';
+const ADMIN_EMAIL = 'suryanatarajan04@gmail.com';
 
 export function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
@@ -62,24 +62,36 @@ export function AuthProvider({ children }) {
     };
 
     const loginWithGoogle = async () => {
-        const userCredential = await signInWithPopup(auth, googleProvider);
-        const userDoc = await getDoc(doc(db, 'customers', userCredential.user.uid));
-        if (!userDoc.exists()) {
-            await setDoc(doc(db, 'customers', userCredential.user.uid), {
-                uid: userCredential.user.uid,
-                email: userCredential.user.email,
-                displayName: userCredential.user.displayName || '',
-                photoURL: userCredential.user.photoURL || '',
-                createdAt: serverTimestamp(),
-                lastLogin: serverTimestamp(),
-                provider: 'google'
-            });
-        } else {
-            await setDoc(doc(db, 'customers', userCredential.user.uid), {
-                lastLogin: serverTimestamp()
-            }, { merge: true });
+        try {
+            const userCredential = await signInWithPopup(auth, googleProvider);
+            try {
+                const userDoc = await getDoc(doc(db, 'customers', userCredential.user.uid));
+                if (!userDoc.exists()) {
+                    await setDoc(doc(db, 'customers', userCredential.user.uid), {
+                        uid: userCredential.user.uid,
+                        email: userCredential.user.email,
+                        displayName: userCredential.user.displayName || '',
+                        photoURL: userCredential.user.photoURL || '',
+                        createdAt: serverTimestamp(),
+                        lastLogin: serverTimestamp(),
+                        provider: 'google'
+                    });
+                } else {
+                    await setDoc(doc(db, 'customers', userCredential.user.uid), {
+                        lastLogin: serverTimestamp()
+                    }, { merge: true });
+                }
+            } catch (firestoreErr) {
+                console.error("Firestore error after Google login:", firestoreErr);
+                // We still returned the user even if firestore fails, or should we?
+                // Let's rethrow so the UI knows it failed.
+                throw firestoreErr;
+            }
+            return userCredential;
+        } catch (authErr) {
+            console.error("Google Auth error:", authErr);
+            throw authErr;
         }
-        return userCredential;
     };
 
     const logout = async () => {

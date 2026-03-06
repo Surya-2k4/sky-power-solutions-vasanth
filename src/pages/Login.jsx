@@ -21,7 +21,7 @@ function Login() {
         setLoading(true);
         try {
             const result = await login(email, password);
-            if (result.user.email === 'admin.sky@gmail.com') {
+            if (result.user.email === 'suryanatarajan04@gmail.com') {
                 navigate('/admin');
             } else {
                 navigate('/');
@@ -52,13 +52,22 @@ function Login() {
         setLoading(true);
         try {
             const result = await loginWithGoogle();
-            if (result.user.email === 'admin.sky@gmail.com') {
+            if (result.user.email === 'suryanatarajan04@gmail.com') {
                 navigate('/admin');
             } else {
                 navigate('/');
             }
         } catch (err) {
-            setError('Google sign-in failed. Please try again.');
+            console.error("Google login error:", err);
+            if (err.code === 'auth/popup-closed-by-user') {
+                setError('The popup was closed before completing the sign-in.');
+            } else if (err.code === 'auth/popup-blocked') {
+                setError('The sign-in popup was blocked by your browser. Please allow popups for this site.');
+            } else if (err.code === 'auth/account-exists-with-different-credential') {
+                setError('An account already exists with this email but using a different sign-in method.');
+            } else {
+                setError(`Google sign-in failed: ${err.message || 'Please try again.'}`);
+            }
         }
         setLoading(false);
     };
