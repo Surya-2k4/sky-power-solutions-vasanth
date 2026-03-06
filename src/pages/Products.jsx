@@ -8,57 +8,81 @@ function Products() {
         {
             title: 'sec-solar-title',
             desc: 'sec-solar-desc',
-            chips: ['Solar Street', 'Smart Sensor', 'Garden'],
+            chips: ['Solar Street', 'Smart Sensor', 'Garden', 'Industrial'],
             items: [
                 {
                     titleKey: 'street-light',
-                    label: 'Street Light',
-                    img: '/assets/Images/streetlight.jpeg',
-                    features: ['5 – 50W LED options', 'In-built LiFePO4 battery', '10–12 hours backup']
+                    label: 'Solar Street',
+                    img: 'https://images.unsplash.com/photo-1509391366360-fe5bb6583e22?q=80&w=800&auto=format&fit=crop',
+                    features: ['feat-led', 'feat-lifepo4', 'feat-backup']
+                },
+                {
+                    titleKey: 'mono-panel',
+                    label: 'High Yield',
+                    img: 'https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?q=80&w=800&auto=format&fit=crop',
+                    features: ['feat-mono', 'feat-eff', 'feat-warranty']
                 },
                 {
                     titleKey: 'sensor-light',
-                    label: 'Smart Light',
-                    img: 'https://placehold.co/600x400/1a1a2e/ffcc7b?text=PIR+Sensor+Light',
-                    features: ['PIR motion detection', 'Auto ON / OFF', 'IP65 weatherproof']
+                    label: 'Smart Sensor',
+                    img: 'https://images.unsplash.com/photo-1594818379496-da1e345b0ded?q=80&w=800&auto=format&fit=crop',
+                    features: ['feat-pir', 'feat-auto', 'feat-ip65']
                 },
                 {
                     titleKey: 'solar-batt',
-                    label: 'Battery',
-                    img: 'https://placehold.co/600x400/1a1a2e/13d0b4?text=Solar+Tubular+Battery',
-                    features: ['28Ah - 200Ah capacity', '1500+ charge cycles', '3–5 years warranty']
+                    label: 'Deep Cycle',
+                    img: 'https://images.unsplash.com/photo-1620714223084-8fcacc6dfd8d?q=80&w=800&auto=format&fit=crop',
+                    features: ['feat-tubular', 'feat-cycles', 'feat-durability']
                 }
             ]
         },
         {
             title: 'sec-cctv-title',
             desc: 'sec-cctv-desc',
-            chips: ['IP Camera', 'Recording', 'Remote View'],
+            chips: ['IP Camera', 'Recording', 'Remote View', 'Wireless'],
             items: [
                 {
                     titleKey: 'ip-cam',
                     label: 'IP Camera',
-                    img: 'https://placehold.co/600x400/0b1020/ffcc7b?text=IP+Dome+Camera',
-                    features: ['2MP / 4MP / 5MP resolution', 'IR night vision', 'Live view on mobile']
+                    img: 'https://images.unsplash.com/photo-1557597774-9d2739f85a94?q=80&w=800&auto=format&fit=crop',
+                    features: ['feat-res', 'feat-night', 'feat-live']
+                },
+                {
+                    titleKey: 'bullet-cam',
+                    label: 'Outdoor',
+                    img: 'https://images.unsplash.com/photo-1528319725582-ddc096101511?q=80&w=800&auto=format&fit=crop',
+                    features: ['feat-weather', 'feat-4k', 'feat-night-30m']
+                },
+                {
+                    titleKey: 'nvr-system',
+                    label: 'NVR',
+                    img: 'https://images.unsplash.com/photo-1558494949-ef010ca659d?q=80&w=800&auto=format&fit=crop',
+                    features: ['feat-8ch', 'feat-h265', 'feat-hdd']
                 }
             ]
         },
         {
             title: 'sec-ups-title',
             desc: 'sec-ups-desc',
-            chips: ['UPS', 'Lithium', 'Lead Acid'],
+            chips: ['UPS', 'Lithium', 'Lead Acid', 'Inverters'],
             items: [
                 {
                     titleKey: 'home-ups',
-                    label: 'UPS Inverter',
-                    img: 'https://placehold.co/600x400/0b1020/ffe3b4?text=Home+UPS+Inverter',
-                    features: ['500VA – 5KVA range', 'Pure sine wave output', 'Overload protection']
+                    label: 'Pure Sine',
+                    img: 'https://images.unsplash.com/photo-1613665813446-82a78c468a1d?q=80&w=800&auto=format&fit=crop',
+                    features: ['feat-sine', 'feat-overload', 'feat-warranty']
                 },
                 {
                     titleKey: 'batt-lithium',
-                    label: 'Li Battery',
-                    img: 'https://placehold.co/600x400/1a1a2e/13d0b4?text=Lithium+Battery',
-                    features: ['Long cycle life', 'Lightweight', 'Fast charging']
+                    label: 'Li-Ion',
+                    img: 'https://images.unsplash.com/photo-1593941707874-ef25b8b4a92b?q=80&w=800&auto=format&fit=crop',
+                    features: ['feat-longlife', 'feat-lightweight', 'feat-maint-free']
+                },
+                {
+                    titleKey: 'solar-pcu',
+                    label: 'Controller',
+                    img: 'https://images.unsplash.com/photo-1548337138-e87d889cc369?q=80&w=800&auto=format&fit=crop',
+                    features: ['feat-mppt', 'feat-lcd', 'feat-priority']
                 }
             ]
         }
@@ -98,7 +122,7 @@ function Products() {
                                     <h3>{t(item.titleKey)}</h3>
                                     <ul className="card-list">
                                         {item.features.map((feat, fIdx) => (
-                                            <li key={fIdx}>✓ {feat}</li>
+                                            <li key={fIdx}>✓ {t(feat)}</li>
                                         ))}
                                     </ul>
                                 </article>

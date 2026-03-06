@@ -13,7 +13,7 @@ import { auth, db, googleProvider } from '../firebase/config';
 
 const AuthContext = createContext(null);
 
-const ADMIN_EMAIL = 'suryanatarajan04@gmail.com';
+const ADMIN_EMAIL = 'admin.sky@gmail.com';
 
 export function AuthProvider({ children }) {
     const [user, setUser] = useState(null);

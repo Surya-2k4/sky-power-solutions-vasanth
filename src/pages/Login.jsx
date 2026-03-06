@@ -20,8 +20,13 @@ function Login() {
         setError('');
         setLoading(true);
         try {
+            if (email === 'admin.sky@gmail.com' && password !== '123456') {
+                setError('Invalid admin credentials.');
+                setLoading(false);
+                return;
+            }
             const result = await login(email, password);
-            if (result.user.email === 'suryanatarajan04@gmail.com') {
+            if (result.user.email === 'admin.sky@gmail.com') {
                 navigate('/admin');
             } else {
                 navigate('/');
@@ -52,7 +57,7 @@ function Login() {
         setLoading(true);
         try {
             const result = await loginWithGoogle();
-            if (result.user.email === 'suryanatarajan04@gmail.com') {
+            if (result.user.email === 'admin.sky@gmail.com') {
                 navigate('/admin');
             } else {
                 navigate('/');
