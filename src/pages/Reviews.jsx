@@ -89,7 +89,13 @@ function Reviews() {
                                     <div className="rating-stars">
                                         {[1, 2, 3, 4, 5].map(star => (
                                             <button key={star} type="button" onClick={() => handleChange('rating', star)}>
-                                                <span style={{ fontSize: '1.4rem' }}>{formData.rating >= star ? '★' : '☆'}</span>
+                                                <span style={{
+                                                    fontSize: '1.5rem',
+                                                    color: formData.rating >= star ? 'var(--accent)' : 'var(--text-muted)',
+                                                    transition: 'color 0.2s ease'
+                                                }}>
+                                                    {formData.rating >= star ? '★' : '☆'}
+                                                </span>
                                             </button>
                                         ))}
                                     </div>
@@ -119,7 +125,7 @@ function Reviews() {
                                     <div className="card" key={idx}>
                                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                                             <strong>{rev.name}</strong>
-                                            <span style={{ color: '#ffc857' }}>{'★'.repeat(rev.rating)}{'☆'.repeat(5 - rev.rating)}</span>
+                                            <span style={{ color: 'var(--accent)' }}>{'★'.repeat(rev.rating)}{'☆'.repeat(5 - rev.rating)}</span>
                                         </div>
                                         <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>{rev.date}</p>
                                         <p>{rev.comment}</p>
