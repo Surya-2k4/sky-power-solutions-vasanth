@@ -14,6 +14,12 @@ const servicesList = [
     { key: 'serv-video-door', icon: '🚪' },
     { key: 'serv-fire', icon: '🔥' },
     { key: 'serv-gps', icon: '📍' },
+    { key: 'serv-fencing', icon: '🚧' },
+    { key: 'serv-earthing', icon: '🔌' },
+    { key: 'serv-lightning', icon: '⚡' },
+    { key: 'serv-automation', icon: '🏠' },
+    { key: 'serv-industrial-ups', icon: '🏢' },
+    { key: 'serv-ev-charging', icon: '🔌' },
 ];
 
 function Services() {
